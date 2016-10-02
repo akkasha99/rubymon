@@ -1,6 +1,6 @@
 class Team < ApplicationRecord
   belongs_to :user
-  has_many :monsters
+  has_many :monsters, :dependent => :destroy
 
   validates_presence_of :user_id
   validate :on => :create do

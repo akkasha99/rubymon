@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates :email, :allow_blank => false, :uniqueness => true, :presence => true
-  has_many :monsters
+  validates :password, :presence => true
+  has_many :monsters, :dependent => :destroy
+  has_many :teams, :dependent => :destroy
 
   def user_data_json(user)
     {
