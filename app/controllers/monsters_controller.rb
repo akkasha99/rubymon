@@ -1,5 +1,5 @@
 class MonstersController < ApplicationController
-  skip_before_action :authenticate_user
+  # skip_before_action :authenticate_user
 
   def index
     user = User.find_by_session_token(params[:session_token])
@@ -8,7 +8,7 @@ class MonstersController < ApplicationController
 
   def get_sorted_monster
     user = User.find_by_session_token(params[:session_token])
-    render :json => {:success => 'true', :user_monsters => user.sorted_monsters(user, params[:sort_by])}
+    render :json => {:success => 'true', :user_monsters => user.sorted_monsters(user, params[:sort_by], params[:sort_order])}
   end
 
   def create
@@ -36,7 +36,7 @@ class MonstersController < ApplicationController
   end
 
   def update
-    monster = Monster.find(params[:moster][:id])
+    monster = Monster.find(params[:monster][:id])
     if monster.present?
       if monster.update(monster_params)
       else
@@ -48,10 +48,10 @@ class MonstersController < ApplicationController
   end
 
   def delete
-    monster = Monster.find(params[:moster][:id])
+    monster = Monster.find(params[:monster][:id])
     if monster.present?
       if monster.destroy
-        render :json => {:sucess => 'true', :message => 'Monster deleted successfully.'}
+        render :json => {:success => 'true', :message => 'Monster deleted successfully.'}
       else
         render :json => {:success => 'false', :message => get_errors(monster.errors)}
       end

@@ -6,7 +6,7 @@ class Monster < ApplicationRecord
   validate :team_id
 
   validate :on => :create do
-    if user && user.monsters.length >= 2
+    if user && user.monsters.length >= 20
       errors.add(:user, 'You already have 20 monsters.')
     end
   end

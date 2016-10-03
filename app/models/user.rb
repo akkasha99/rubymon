@@ -26,12 +26,13 @@ class User < ApplicationRecord
     end
   end
 
-  def sorted_monsters(user, sort_by)
-    monsters = user.monsters.order(sort_by.to_sym)
+  def sorted_monsters(user, sort_by, sort_order)
+    monsters = user.monsters.order(sort_by + ' ' + sort_order)
     if monsters.blank?
       []
     else
-      monsters.map { |mon| {:id => mon.id, :name => mon.name, :type => mon.type.name} }
+      monsters.map { |mon| mon.monster_data_json(mon) }
+      # monsters.sort_by { |mon| mon.power.to_i }.map { |mon| mon.monster_data_json(mon) }.reverse
     end
   end
 
