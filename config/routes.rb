@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :monsters do
     collection do
       get 'create'
+      get 'get_sorted_monster'
     end
   end
 end

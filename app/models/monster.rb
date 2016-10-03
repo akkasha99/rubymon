@@ -22,14 +22,4 @@ class Monster < ApplicationRecord
         :team => {:team_id => monster.team.id, :team_name => monster.team.name}
     }
   end
-
-  def sorted_monsters(sort_by)
-    monsters = user.monsters
-    if monsters.blank?
-      []
-    else
-      monsters.map { |mon| {:id => mon.id, :name => mon.name, :type => mon.type.name} }
-    end
-  end
-end
 end

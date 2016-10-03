@@ -26,4 +26,13 @@ class User < ApplicationRecord
     end
   end
 
+  def sorted_monsters(user, sort_by)
+    monsters = user.monsters.order(sort_by.to_sym)
+    if monsters.blank?
+      []
+    else
+      monsters.map { |mon| {:id => mon.id, :name => mon.name, :type => mon.type.name} }
+    end
+  end
+
 end

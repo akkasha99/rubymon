@@ -2,13 +2,13 @@ class MonstersController < ApplicationController
   skip_before_action :authenticate_user
 
   def index
-    user = User.find(params[:user][:id])
+    user = User.find_by_session_token(params[:session_token])
     render :json => {:success => 'true', :user_monsters => user.user_monsters(user)}
   end
 
   def get_sorted_monster
-    user = User.find(params[:user][:id])
-    render :json => {:success => 'true', :user_monsters => user.user_monsters(user)}
+    user = User.find_by_session_token(params[:session_token])
+    render :json => {:success => 'true', :user_monsters => user.sorted_monsters(user, params[:sort_by])}
   end
 
   def create
