@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates :email, :allow_blank => false, :uniqueness => true, :presence => true
-  validates :password, :presence => true
+  validates :password, :presence => true, :length => {in: 6..20}
   has_many :monsters, :dependent => :destroy
   has_many :teams, :dependent => :destroy
 
